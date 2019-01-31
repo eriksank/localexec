@@ -1,0 +1,24 @@
+package = "localexec"
+version = "=VERSION="
+source = {
+   url = "git://github.com/eriksank/localexec",
+    tag = "=VERSION="
+}
+description = {
+   summary = "localexec is a lua rock that ...",
+   homepage = "https://github.com/eriksank/localexec",
+   license = "LGPL",
+   maintainer="Erik Poupaert <erik@sankuru.biz>"
+}
+
+dependencies = {
+    'lua >= 5.1'
+}
+
+build = {
+   type = "builtin",
+   modules = {
+      ["localexec"] = "localexec.lua"
+   }
+}
+
