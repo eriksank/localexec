@@ -58,7 +58,23 @@ end
 `stdout`: output on stdout
 `stderr`: output on stderr
 
-## 4. Similar modules and functions
+## 4. How does it work?
+
+Under the hood `localexec` actually uses `os.execute`. It uses shared memory (/dev/shm) to populate `stdin`, if present,
+and reads `stdout`, `stderr`, and the return code from shared memory after execution:
+```
+$ cat /dev/shm/lua_aVjVBv.stdin | env1='val1' env2='val2' ... envN \
+    COMMAND arg1 arg2 ... argM \
+        > /dev/shm/lua_aVjVBv.stdout \
+        2> /dev/shm/lua_aVjVBv.stderr ; \
+  echo $? > /dev/shm/lua_aVjVBv.retcode
+```
+`localexec` carefully escapes the environment values and arguments to prevent shell injection.
+Next, `localexec` removes the temporary shared-memory files.
+
+Hence, it lets the shell deal with simultaneously reading from `stdin` while writing to `stdout` and `stderr`.
+
+## 5. Similar modules and functions
 
 ### (lua built-in) os.execute
 
@@ -75,7 +91,7 @@ It does not return `stderr` nor `retcode`.
 The [popen3](https://gist.github.com/mike-bourgeous/2be6c8900bf624887fe5fee4f28552ef#file-popen3_2011-c) module, and its
 [alternative](https://github.com/kylemanna/lua-popen3/blob/master/pipe.lua) or [other alternative](https://github.com/LuaDist/lpc) provide the user with streams, and leaves him the task to simultaneously feed `stdin` and read from `stdout` and `stderr`. This can be achieved with co-routines, threads, or with the libc `select()` function. For the purpose of supplying `stdin` as a lua string and reading out `stdout` and `stderr` as lua strings, using these modules requires extra work.
 
-## 5. admin scripts
+## 6. admin scripts
 
 The `admin.sh` facilitates developing, building, and publishing the program.
 You can use `./admin.sh help` to view the commands available.
@@ -83,11 +99,11 @@ You can use `./admin.sh help` to view the commands available.
 It pushes the source code changes to the github publication platform.
 It pushes the lua module to the luarocks distribution platform.
 
-## 6. Issues and feedback
+## 7. Issues and feedback
 
 Feel free to post a message on the [issue list](https://github.com/eriksank/localexec/issues).
 
-## 7. License
+## 8. License
 
 ```
 Written by Erik Poupaert

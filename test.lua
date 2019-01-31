@@ -33,4 +33,5 @@ end
 in_out{cmd="ls", args={"-l","/"}}
 in_out{cmd="cat",stdin="hello",env={x="c"}}
 in_out{cmd="./test.sh",env={env1="hello world"}}
+print(localexec.temp_filename())
 
