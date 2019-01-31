@@ -2,7 +2,7 @@
 
 ## 1. Synopsis
 
-`localexec` is a lua module that executes a command by accepting (stdin,env,args) as input and returning (resultcode,stdout,stderr) as output.
+`localexec` is a linux-only lua module that executes a command by accepting (stdin,env,args) as input and returning (resultcode,stdout,stderr) as output.
 
 ## 2. Installation
 
