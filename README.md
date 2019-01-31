@@ -49,7 +49,7 @@ end
 * `cmd`: required
 * `args`: optional list of arguments
 * `env`: optional list of environment variables
-* `stdin`: will be fed to stdin
+* `stdin`: optional string that will be fed to stdin, if present
 
 ### processOutput
 
