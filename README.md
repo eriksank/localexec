@@ -53,10 +53,10 @@ end
 
 ### processOutput
 
-`luaresult`: result returned by `os.execute` (nil=ok and false=error)
-`retcode`: integer result returned by shell (0=ok and not 0=error)
-`stdout`: output on stdout
-`stderr`: output on stderr
+* `luaresult`: result returned by `os.execute` (nil=ok and false=error)
+* `retcode`: integer result returned by shell (0=ok and not 0=error)
+* `stdout`: output on stdout
+* `stderr`: output on stderr
 
 ## 4. How does it work?
 
